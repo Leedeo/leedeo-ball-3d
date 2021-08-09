@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Blackmoor Colossus Loop.ogg-d8a8ea75b7022f313e2f3844ff9a0073.oggstr"
+
+[deps]
+
+source_file="res://Assets/Music/Blackmoor Colossus Loop.ogg"
+dest_files=[ "res://.import/Blackmoor Colossus Loop.ogg-d8a8ea75b7022f313e2f3844ff9a0073.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/las-conseguio-maifriend.ogg-1f7bca249b84914127af3b56e7e49c29.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/las-conseguio-maifriend.ogg"
+dest_files=[ "res://.import/las-conseguio-maifriend.ogg-1f7bca249b84914127af3b56e7e49c29.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

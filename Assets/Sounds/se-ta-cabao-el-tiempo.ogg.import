@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/se-ta-cabao-el-tiempo.ogg-19864d12c4560187cbdf9640974e9c67.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/se-ta-cabao-el-tiempo.ogg"
+dest_files=[ "res://.import/se-ta-cabao-el-tiempo.ogg-19864d12c4560187cbdf9640974e9c67.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

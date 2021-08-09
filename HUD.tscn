@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Fonts/pricedown bl.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/HUD.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sounds/las-conseguio-maifriend.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Sounds/se-ta-cabao-el-tiempo.ogg" type="AudioStream" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+outline_size = 2
+outline_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 200
+outline_size = 4
+outline_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:custom_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.835294, 0.309804, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="HUD" type="Control" groups=[
+"HUD",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="Time"]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="Score" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Score"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Score"]
+anims/Show = SubResource( 3 )
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="SeTaAcabaoElTiempo" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 4 )
+
+[node name="LasConseguioMaifriend" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 3 )
+
+[connection signal="timeout" from="Time/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="finished" from="Sounds/SeTaAcabaoElTiempo" to="." method="_on_SeTaAcabaoElTiempo_finished"]
+[connection signal="finished" from="Sounds/LasConseguioMaifriend" to="." method="_on_LasConseguioMaifriend_finished"]

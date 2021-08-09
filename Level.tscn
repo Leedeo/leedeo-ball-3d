@@ -1,0 +1,414 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Assets/Materials/Wall.tres" type="Material" id=1]
+[ext_resource path="res://Assets/Materials/Ground.tres" type="Material" id=2]
+[ext_resource path="res://Scripts/Court.gd" type="Script" id=3]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Music/Blackmoor Colossus Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Materials/Bench.tres" type="Material" id=6]
+[ext_resource path="res://Assets/Materials/Metal.tres" type="Material" id=7]
+[ext_resource path="res://Coin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=10]
+
+[sub_resource type="PlaneMesh" id=1]
+material = ExtResource( 2 )
+size = Vector2( 60, 40 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 30, 1, 20 )
+
+[sub_resource type="CubeMesh" id=3]
+material = ExtResource( 1 )
+size = Vector3( 16, 4, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 8, 2, 0.5 )
+
+[sub_resource type="CubeMesh" id=5]
+material = ExtResource( 6 )
+size = Vector3( 10, 0.5, 3 )
+
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 7 )
+size = Vector3( 0.5, 0.75, 0.5 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 5, 0.6, 1.5 )
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 7 )
+size = Vector3( 0.75, 8, 0.75 )
+
+[sub_resource type="CubeMesh" id=9]
+material = ExtResource( 7 )
+size = Vector3( 2, 0.75, 0.75 )
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 0.5, 4, 5 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.375, 4, 0.375 )
+
+[node name="Level" type="Spatial"]
+
+[node name="Camera" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 34, 22 )
+
+[node name="HUD" parent="." instance=ExtResource( 10 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 20, 30 )
+light_color = Color( 0.929412, 0.905882, 0.964706, 1 )
+light_energy = 0.2
+shadow_enabled = true
+shadow_color = Color( 0.14902, 0.196078, 0.219608, 1 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 21, 0 )
+light_color = Color( 0.92549, 0.937255, 0.945098, 1 )
+light_energy = 2.0
+shadow_enabled = true
+shadow_color = Color( 0.14902, 0.196078, 0.219608, 1 )
+spot_range = 30.0
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -6.0
+autoplay = true
+
+[node name="Court" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="Ground" type="KinematicBody" parent="Court"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Ground"]
+shape = SubResource( 2 )
+
+[node name="Walls" type="Spatial" parent="Court"]
+
+[node name="Wall01" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, 19.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall01"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall01"]
+shape = SubResource( 4 )
+
+[node name="Wall02" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2, 19.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall02"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall02"]
+shape = SubResource( 4 )
+
+[node name="Wall03" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2, -19.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall03"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall03"]
+shape = SubResource( 4 )
+
+[node name="Wall04" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2, -19.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall04"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall04"]
+shape = SubResource( 4 )
+
+[node name="Wall05" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.5, 2, 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall05"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall05"]
+shape = SubResource( 4 )
+
+[node name="Wall06" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.5, 2, -12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall06"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall06"]
+shape = SubResource( 4 )
+
+[node name="Wall07" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 29.5, 2, 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall07"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall07"]
+shape = SubResource( 4 )
+
+[node name="Wall08" type="KinematicBody" parent="Court/Walls"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 29.5, 2, -12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Court/Walls/Wall08"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Walls/Wall08"]
+shape = SubResource( 4 )
+
+[node name="Bench" type="Spatial" parent="Court"]
+
+[node name="Bench01" type="KinematicBody" parent="Court/Bench"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 15 )
+
+[node name="Seat" type="MeshInstance" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Leg01" type="MeshInstance" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg02" type="MeshInstance" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg03" type="MeshInstance" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg04" type="MeshInstance" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Bench/Bench01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+shape = SubResource( 7 )
+
+[node name="Bench02" type="KinematicBody" parent="Court/Bench"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 15 )
+
+[node name="Seat" type="MeshInstance" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Leg01" type="MeshInstance" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg02" type="MeshInstance" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg03" type="MeshInstance" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg04" type="MeshInstance" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Bench/Bench02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+shape = SubResource( 7 )
+
+[node name="Bench03" type="KinematicBody" parent="Court/Bench"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -15 )
+
+[node name="Seat" type="MeshInstance" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Leg01" type="MeshInstance" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg02" type="MeshInstance" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg03" type="MeshInstance" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg04" type="MeshInstance" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Bench/Bench03"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+shape = SubResource( 7 )
+
+[node name="Bench04" type="KinematicBody" parent="Court/Bench"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -15 )
+
+[node name="Seat" type="MeshInstance" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Leg01" type="MeshInstance" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg02" type="MeshInstance" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg03" type="MeshInstance" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, 1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Leg04" type="MeshInstance" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.375, -1 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Bench/Bench04"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+shape = SubResource( 7 )
+
+[node name="Baskets" type="Spatial" parent="Court"]
+
+[node name="Basket01" type="KinematicBody" parent="Court/Baskets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 0, 0 )
+
+[node name="Body01" type="MeshInstance" parent="Court/Baskets/Basket01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="Body02" type="MeshInstance" parent="Court/Baskets/Basket01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 7.62, 0 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="Table" type="MeshInstance" parent="Court/Baskets/Basket01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62, 7.62, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Baskets/Basket01"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+shape = SubResource( 11 )
+
+[node name="Basket02" type="KinematicBody" parent="Court/Baskets"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -23.5, 0, 0 )
+
+[node name="Body01" type="MeshInstance" parent="Court/Baskets/Basket02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="Body02" type="MeshInstance" parent="Court/Baskets/Basket02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 7.62, 0 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="Table" type="MeshInstance" parent="Court/Baskets/Basket02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62, 7.62, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Court/Baskets/Basket02"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+shape = SubResource( 11 )
+
+[node name="Coins" type="Spatial" parent="Court"]
+
+[node name="Coin01" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -20, 1, -12 )
+
+[node name="Coin02" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -20, 1, -4 )
+
+[node name="Coin03" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -20, 1, 4 )
+
+[node name="Coin04" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -20, 1, 12 )
+
+[node name="Coin05" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -12, 1, -6 )
+
+[node name="Coin06" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -12, 1, 6 )
+
+[node name="Coin07" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -4, 1, -8 )
+
+[node name="Coin08" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -4, 1, 8 )
+
+[node name="Coin09" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 1, -15 )
+
+[node name="Coin10" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 1, 15 )
+
+[node name="Coin11" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 4, 1, -8 )
+
+[node name="Coin12" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 4, 1, 8 )
+
+[node name="Coin13" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 12, 1, -6 )
+
+[node name="Coin14" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 12, 1, 6 )
+
+[node name="Coin15" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 20, 1, -4 )
+
+[node name="Coin16" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 20, 1, 4 )
+
+[node name="Coin17" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 20, 1, -13 )
+
+[node name="Coin18" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 20, 1, 12 )
+
+[node name="Coin19" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8, 1, 0 )
+
+[node name="Coin20" parent="Court/Coins" instance=ExtResource( 8 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 8, 1, 0 )
+
+[node name="Ball" parent="." instance=ExtResource( 4 )]
